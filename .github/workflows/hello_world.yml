@@ -13,8 +13,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4 # Bước này để lấy code từ repo vào máy ảo
 
-      - name: Say hello
-        run: echo "Chào mừng bạn đến với CI/CD! Code đã được push thành công."
+      # Bước 2: Dùng Action từ cộng đồng để cài Node.js phiên bản cụ thể
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm' # Tự động lưu cache thư viện để lần sau chạy nhanh hơn
+    
+      # Bước 3: Cài đặt thư viện (nếu có)
+      - name: Install dependencies
+        run: npm install
 
-      - name: Kiểm tra phiên bản Node.js
-        run: node -v
+      # Bước 5: Tạo một file giả lập kết quả build
+      - name: Build project
+        run: |
+          mkdir output
+          echo "Build thành công vào ngày $(date)" > output/result.txt
+
+      # Bước 6: Dùng Action cộng đồng để lưu lại file vừa build (Artifact)
+      - name: Upload Build Result
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: output/
