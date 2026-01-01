@@ -1,0 +1,20 @@
+name: My First CI # Tên của workflow
+
+'on':
+  - push
+  # Sự kiện kích hoạt: Mỗi khi bạn push code lên repo
+
+jobs:
+  build-and-greet:
+    # Tên của công việc
+    runs-on: ubuntu-latest # Hệ điều hành máy ảo mà GitHub cấp cho bạn
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Bước này để lấy code từ repo vào máy ảo
+
+      - name: Say hello
+        run: echo "Chào mừng bạn đến với CI/CD! Code đã được push thành công."
+
+      - name: Kiểm tra phiên bản Node.js
+        run: node -v
