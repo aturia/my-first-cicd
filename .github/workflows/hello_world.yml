@@ -18,7 +18,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm' # Tự động lưu cache thư viện để lần sau chạy nhanh hơn
     
       # Bước 3: Cài đặt thư viện (nếu có)
       - name: Install dependencies
